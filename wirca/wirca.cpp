@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	// Buffers
 	int recvbuflen = DEFAULT_BUFLEN;
 	char recvbuf[DEFAULT_BUFLEN];
-	char suffix[512];
+	char suffix[DEFAULT_BUFLEN];
 
 	// Rename arguments
 	std::string HOST = argv[1];
@@ -42,18 +42,25 @@ int main(int argc, char **argv)
 	std::string SEND_USER = "USER " + USER + " 127.0.0.1 bla :" + USER + "\r\n";
 	std::string SEND_JOIN = "JOIN " + CHAN + "\r\n";
 
-	int firstloop = 0;
-
+	/////////////////////////////////////////////////////////////////////////
+	//
 	// Main loop
-	for (;;) {
+	//
+	// The point of this loop is to keep going whenever an error occurs, 
+	// to continue trying to reconnect after a disconnect.  This is why 
+	// there are continue statements after error checking instead of return.
+	//
+	/////////////////////////////////////////////////////////////////////////
 
-		if (firstloop > 0) {
+	// Using i as a flag to determine if it's the first time through the loop
+	for (int i=0;;i=1) {
+
+		// Do not sleep if this is the first time through the loop
+		if (i > 0) {
 			// Sleep for 60 seconds to keep the loop under control
 			cout << "sleeping for 60 seconds ..." << endl;
 			Sleep(60 * 1000);
 		}
-
-		firstloop = 1;
 
 		// Initialize Winsock
 		WSADATA wsaData;
