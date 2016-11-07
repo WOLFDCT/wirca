@@ -27,9 +27,12 @@ int main(int argc, char **argv)
 	}
 
 	// Buffers
-	int recvbuflen = DEFAULT_BUFLEN;
 	char recvbuf[DEFAULT_BUFLEN];
 	char suffix[DEFAULT_BUFLEN];
+
+	// Zero the buffer memory
+	ZeroMemory(&recvbuf, sizeof(recvbuf));
+	ZeroMemory(&suffix, sizeof(suffix));
 
 	// Rename arguments
 	std::string HOST = argv[1];
@@ -163,7 +166,7 @@ int main(int argc, char **argv)
 
 		// Receive data until the server closes the connection
 		do {
-			iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+			iResult = recv(ConnectSocket, recvbuf, DEFAULT_BUFLEN, 0);
 			if (iResult > 0) {
 				cout << "bytes received: " << iResult << endl;
 				cout << recvbuf << endl;
