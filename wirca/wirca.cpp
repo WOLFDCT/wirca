@@ -1,5 +1,5 @@
 // Windows IRC Agent
-// 2016-11-06
+// 2016-11-06 DW
 
 #include <winsock2.h>
 #include <WS2tcpip.h>
