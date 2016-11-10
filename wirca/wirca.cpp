@@ -61,6 +61,7 @@ int main(int argc, char **argv)
 		// Do not sleep if this is the first time through the loop
 		if (i > 0) {
 			// Sleep for 60 seconds to keep the loop under control
+			cout << "Disconnected" << endl;
 			cout << "sleeping for 60 seconds ..." << endl;
 			Sleep(60 * 1000);
 		}
